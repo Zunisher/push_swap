@@ -6,17 +6,17 @@
 /*   By: hechahbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 21:21:29 by hechahbo          #+#    #+#             */
-/*   Updated: 2026/11/12 21:27:29 by hechahbo         ###   ########.fr       */
+/*   Updated: 2026/11/13 20:24:40 by amaghari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	indexing_stack(t_list *stack)
+void	indexing_stack(t_stack *stack)
 {
 	int		count;
-	t_list	*current;
-	t_list	*compare;
+	t_stack	*current;
+	t_stack	*compare;
 
 	current = stack;
 	while (current != NULL)
@@ -46,7 +46,7 @@ int	ft_sqrt(int nbr)
 	return (i - 1);
 }
 
-void	sorting_chunk(t_list **stack_a, t_list **stack_b, c_operations *p)
+void	sorting_chunk(t_stack **stack_a, t_stack **stack_b, c_operations *p)
 {
 	int	size;
 	int	chunk_size;
@@ -73,7 +73,7 @@ void	sorting_chunk(t_list **stack_a, t_list **stack_b, c_operations *p)
 	}
 }
 
-int	find_next_position(t_list *stack)
+int	find_next_position(t_stack *stack)
 {
 	int	max_index;
 	int	current_pos;
@@ -95,14 +95,14 @@ int	find_next_position(t_list *stack)
 	return (max_pos);
 }
 
-void	pushing_back_to_a(t_list **stack_a, t_list **stack_b, c_operations *p)
+void	pushing_back_to_a(t_stack **stack_a, t_stack **stack_b, c_operations *p)
 {
 	int	pos;
 	int	size;
 
 	while (*stack_b != NULL)
 	{
-		size = ft_lstsize(*stack_b);
+		size = stack_size(*stack_b);
 		pos = find_next_position(*stack_b);
 		if (pos <= (size / 2))
 		{

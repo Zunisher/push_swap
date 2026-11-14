@@ -6,13 +6,13 @@
 /*   By: amaghari <amaghari@student.42belgium.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/11 14:22:25 by amaghari          #+#    #+#             */
-/*   Updated: 2026/11/12 18:53:11 by amaghari         ###   ########.fr       */
+/*   Updated: 2026/11/13 20:23:51 by amaghari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	min_position(t_list *lst)
+static int	min_position(t_stack *lst)
 {
 	int	min;
 	int	pos;
@@ -34,7 +34,7 @@ static int	min_position(t_list *lst)
 	return (pos);
 }
 
-int	is_sorted(t_list *lst)
+int	is_sorted(t_stack *lst)
 {
 	while (lst && lst->next)
 	{
@@ -45,7 +45,7 @@ int	is_sorted(t_list *lst)
 	return (1);
 }
 
-static void	bring_to_top(t_list **a, int pos, int size, c_operations *p)
+static void	bring_to_top(t_stack **a, int pos, int size, c_operations *p)
 {
 	if (pos <= size / 2)
 	{
@@ -59,13 +59,26 @@ static void	bring_to_top(t_list **a, int pos, int size, c_operations *p)
 	}
 }
 
-void	simple_sort(t_list **a, t_list **b, c_operations *p)
+int stack_size(t_stack *stack)
+{
+    int size;
+
+    size = 0;
+    while (stack)
+    {
+        size++;
+        stack = stack->next;
+    }
+    return (size);
+}
+
+void	simple_sort(t_stack **a, t_stack **b, c_operations *p)
 {
 	int	size;
 
 	while (*a && !is_sorted(*a))
 	{
-		size = ft_lstsize(*a);
+		size = stack_size(*a);
 		bring_to_top(a, min_position(*a), size, p);
 		pb(a, b, p);
 	}

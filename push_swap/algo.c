@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   algo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amaghari <amaghari@student.42belgium.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/10/20 19:31:33 by amaghari          #+#    #+#             */
-/*   Updated: 2026/10/20 19:32:39 by amaghari         ###   ########.fr       */
+/*   Created: 2026/11/13 20:38:13 by amaghari          #+#    #+#             */
+/*   Updated: 2026/11/13 20:38:37 by amaghari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
+#include <stdio.h>
 
-void	ft_striteri(char *s, void (*f)(unsigned int, char *))
+void medium_sort(t_stack **stack, t_stack **b, c_operations *p)
 {
-	int	i;
-
-	if (!s || !f)
-		return ;
-	i = 0;
-	while (s[i])
-	{
-		f(i, &s[i]);
-		i++;
-	}
+	(void) stack;
+	(void) b;
+	(void) p;
+	printf("medium");
+}
+void difficult_sort(t_stack **stack, t_stack **b, c_operations *p)
+{
+	(void) stack;
+	(void) b;
+	(void) p;
+	printf("hard");
 }

@@ -6,15 +6,15 @@
 /*   By: amaghari <amaghari@student.42belgium.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/11 19:15:35 by amaghari          #+#    #+#             */
-/*   Updated: 2026/11/12 19:06:50 by amaghari         ###   ########.fr       */
+/*   Updated: 2026/11/13 20:35:06 by amaghari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	push(t_list **src, t_list **dst)
+static void	push(t_stack **src, t_stack **dst)
 {
-	t_list	*tmp;
+	t_stack	*tmp;
 
 	if (!src || !*src)
 		return ;
@@ -29,20 +29,20 @@ static void	push(t_list **src, t_list **dst)
 	*dst = tmp;
 }
 
-void	pa(t_list **a, t_list **b, c_operation *operation)
+void	pa(t_stack **a, t_stack **b, c_operations *p)
 {
 	push(b, a);
-	if (operation->print)
+	if (p->print)
 		write(1, "pa\n", 3);
 	else
-		operations->pa++;
+		p->pa++;
 }
 
-void	pb(t_list **a, t_list **b, c_operations *operation)
+void	pb(t_stack **a, t_stack **b, c_operations *p)
 {
 	push(a, b);
-	if (operation->print)
+	if (p->print)
 		write(1, "pb\n", 3);
 	else
-		operations->pb++;
+		p->pb++;
 }

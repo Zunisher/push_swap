@@ -1,41 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amaghari <amaghari@student.42belgium.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/10/30 15:13:55 by amaghari          #+#    #+#             */
-/*   Updated: 2026/10/30 15:14:00 by amaghari         ###   ########.fr       */
+/*   Created: 2026/11/13 21:06:53 by amaghari          #+#    #+#             */
+/*   Updated: 2026/11/13 21:09:46 by amaghari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+t_stack *ftt_lstlast(t_stack *lst)
 {
-	unsigned char	*p;
-	unsigned char	*v;
-	size_t			i;
-
-	i = 0;
-	p = (unsigned char *)dest;
-	v = (unsigned char *)src;
-	while (i < n)
-	{
-		p[i] = v[i];
-		i++;
-	}
-	return (dest);
+	if (!lst)
+		return (NULL);
+	while (lst != NULL && lst->next != NULL)
+		lst = lst->next;
+	return (lst);
 }
-/*
-#include <stdio.h>
-
-int main(void){
-	char dest[] = "test text";
-	char src[] = "main text";
-	char *p = memcpy(dest, src, 5);
-	printf("%s\n", p);
-	return 0;
-}
-*/

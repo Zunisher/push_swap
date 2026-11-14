@@ -6,7 +6,7 @@
 /*   By: amaghari <amaghari@student.42belgium.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/08 15:32:09 by amaghari          #+#    #+#             */
-/*   Updated: 2026/11/12 19:59:18 by amaghari         ###   ########.fr       */
+/*   Updated: 2026/11/13 20:45:43 by amaghari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,33 +24,51 @@ int	ft_isintanse(char *argv, char t)
 	{
 		if (argv[i] == t)
 			return (1);
+		i++;
 	}
 	return (0);
 }
 
-static void	fill(t_list **p, char **argv, int size)
+static int fill(t_stack **p, char **argv, int size)
 {
-	size_t	i;
+    size_t i;
 
-	i = 0;
-	while (i < (size_t)size)
-	{
-		p[i] = ft_calloc(sizeof(t_list), 1);
-		p[i]->next = NULL;
-		if (i == 0)
-			p[i]->previous = NULL;
-		else
-			p[i]->previous = p[i - 1];
-		if (i > 0)
-			p[i - 1]->next = p[i];
-		p[i++]->val = ft_atoi(*argv++);
-	}
+    i = 0;
+    while (i < (size_t)size)
+    {
+        p[i] = ft_calloc(1, sizeof(t_stack));
+        if (!p[i])
+            return (0);
+        p[i]->val = ft_atoi(argv[i]);
+        if (i > 0)
+        {
+            p[i]->previous = p[i - 1];
+            p[i - 1]->next = p[i];
+        }
+        i++;
+    }
+    return (1);
 }
 
-static t_list	**fill_split(char *arg)
+void free_split(char **split)
+{
+    int i;
+
+    i = 0;
+    if (!split)
+        return ;
+    while (split[i])
+    {
+        free(split[i]);
+        i++;
+    }
+    free(split);
+}
+
+static t_stack	**fill_split(char *arg)
 {
 	char	**split;
-	t_list	**p;
+	t_stack	**p;
 	size_t	size;
 
 	split = ft_split(arg, ' ');
@@ -59,29 +77,29 @@ static t_list	**fill_split(char *arg)
 	size = 0;
 	while (split[size])
 		size++;
-	p = ft_calloc(size, sizeof(t_list *));
-	if (!p)
+	p = ft_calloc(size, sizeof(t_stack *));
+	if (!fill(p, split, size))
 		return (free_split(split), NULL);
-	fill(p, split, size);
 	free_split(split);
 	return (p);
 }
 
-t_list	**create_fill_struct(int argc, char **argv)
+t_stack	**create_fill_struct(int argc, char **argv)
 {
 	size_t	i;
 	size_t	size;
-	t_list	**p;
+	t_stack	**p;
 
-	i = non_flags(argv);
+	i = non_flag(argv);
 	if (i >= (size_t)argc)
 		return (NULL);
 	if (ft_isintanse(argv[i], ' '))
 		return (fill_split(argv[i]));
-	size = argc - i;
-	p = ft_calloc(size, sizeof(t_list *));
+	size = (argc - 1) - i;
+	p = ft_calloc(size, sizeof(t_stack *));
 	if (!p)
 		return (NULL);
-	fill(p, &argv[i], size);
+	if(!fill(p, &argv[++i], size))
+		return (NULL);
 	return (p);
 }

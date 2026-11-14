@@ -1,7 +1,7 @@
 NAME        = push_swap
 
 CC          = cc
-CFLAGS      = -Wall -Wextra -Werror
+CFLAGS      = -g
 
 LIBFT_DIR   = ../libft
 LIBFT       = $(LIBFT_DIR)/libft.a
@@ -12,8 +12,10 @@ SRCS        = create_fill_struct.c \
               main.c \
               simple_algoritm.c \
               push.c \
+              utils.c\
               revers_rotate.c \
               rotate.c \
+              algo.c \
               swap.c
 
 OBJS        = $(SRCS:.c=.o)

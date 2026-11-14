@@ -1,57 +1,59 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotate.c                                           :+:      :+:    :+:   */
+/*   swap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amaghari <amaghari@student.42belgium.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/11/11 19:17:59 by amaghari          #+#    #+#             */
-/*   Updated: 2026/11/12 19:28:59 by amaghari         ###   ########.fr       */
+/*   Created: 2026/11/11 19:12:23 by amaghari          #+#    #+#             */
+/*   Updated: 2026/11/13 20:31:54 by amaghari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	rotate(t_list **stack)
+static void	swap(t_stack **stack)
 {
-	t_list	*first;
-	t_list	*last;
+	t_stack	*first;
+	t_stack	*second;
 
 	if (!stack || !*stack || !(*stack)->next)
 		return ;
 	first = *stack;
-	last = ft_lstlast(*stack);
-	*stack = first->next;
-	(*stack)->previous = NULL;
-	last->next = first;
-	first->previous = last;
-	first->next = NULL;
+	second = first->next;
+	first->next = second->next;
+	if (second->next)
+		second->next->previous = first;
+	second->next = first;
+	second->previous = NULL;
+	first->previous = second;
+	*stack = second;
 }
 
-void	ra(t_list **a, c_operations *operation)
+void	sa(t_stack **a, c_operations *operation)
 {
-	rotate(a);
+	swap(a);
 	if (operation->print)
-		write(1, "ra\n", 3);
+		write(1, "sa\n", 3);
 	else
-		operations->ra++;
+		operation->sa++;
 }
 
-void	rb(t_list **b, c_operations *operation)
+void	sb(t_stack **b, c_operations *operation)
 {
-	rotate(b);
+	swap(b);
 	if (operation->print)
-		write(1, "rb\n", 3);
+		write(1, "sb\n", 3);
 	else
-		operations->rb++;
+		operation->sb++;
 }
 
-void	rr(t_list **a, t_list **b, c_operations *operation)
+void	ss(t_stack **a, t_stack **b, c_operations *operation)
 {
-	rotate(a);
-	rotate(b);
+	swap(a);
+	swap(b);
 	if (operation->print)
-		write(1, "rr\n", 3);
+		write(1, "ss\n", 3);
 	else
-		operations->rr++;
+		operation->ss++;
 }
