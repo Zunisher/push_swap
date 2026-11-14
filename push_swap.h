@@ -6,7 +6,7 @@
 /*   By: amaghari <amaghari@student.42belgium.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/08 12:47:23 by amaghari          #+#    #+#             */
-/*   Updated: 2026/11/14 22:27:52 by hechahbo         ###   ########.fr       */
+/*   Updated: 2026/11/14 22:36:42 by hechahbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	find_next_position(t_list *stack);
 void	pushing_back_to_a(t_list **stack_a, t_list **stack_b, c_operations *p);
 int	check_duplicates(t_list *stack);
 int	calc_rotations(t_list *stack);
-void	Radix_sort(t_list **stack_a, t_list **stack_b, int size, c_operations *p);
+void	radix_sort(t_list **stack_a, t_list **stack_b, int size,
+c_operations *p);
 
 #endif
