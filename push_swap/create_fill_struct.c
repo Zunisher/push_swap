@@ -6,7 +6,7 @@
 /*   By: amaghari <amaghari@student.42belgium.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/08 15:32:09 by amaghari          #+#    #+#             */
-/*   Updated: 2026/11/13 20:45:43 by amaghari         ###   ########.fr       */
+/*   Updated: 2026/11/14 22:00:00 by amaghari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,40 +29,55 @@ int	ft_isintanse(char *argv, char t)
 	return (0);
 }
 
-static int fill(t_stack **p, char **argv, int size)
+static void	free_nodes(t_stack **nodes, size_t count)
 {
-    size_t i;
+	size_t	i;
 
-    i = 0;
-    while (i < (size_t)size)
-    {
-        p[i] = ft_calloc(1, sizeof(t_stack));
-        if (!p[i])
-            return (0);
-        p[i]->val = ft_atoi(argv[i]);
-        if (i > 0)
-        {
-            p[i]->previous = p[i - 1];
-            p[i - 1]->next = p[i];
-        }
-        i++;
-    }
-    return (1);
+	i = 0;
+	while (i < count)
+	{
+		free(nodes[i]);
+		i++;
+	}
 }
 
-void free_split(char **split)
+static int	fill(t_stack **p, char **argv, size_t size)
 {
-    int i;
+	size_t	i;
 
-    i = 0;
-    if (!split)
-        return ;
-    while (split[i])
-    {
-        free(split[i]);
-        i++;
-    }
-    free(split);
+	i = 0;
+	while (i < size)
+	{
+		p[i] = ft_calloc(1, sizeof(t_stack));
+		if (!p[i])
+		{
+			free_nodes(p, i);
+			return (0);
+		}
+		p[i]->val = ft_atoi(argv[i]);
+		if (i > 0)
+		{
+			p[i]->previous = p[i - 1];
+			p[i - 1]->next = p[i];
+		}
+		i++;
+	}
+	return (1);
+}
+
+static void	free_split(char **split)
+{
+	int	i;
+
+	i = 0;
+	if (!split)
+		return ;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
 }
 
 static t_stack	**fill_split(char *arg)
@@ -77,9 +92,17 @@ static t_stack	**fill_split(char *arg)
 	size = 0;
 	while (split[size])
 		size++;
-	p = ft_calloc(size, sizeof(t_stack *));
-	if (!fill(p, split, size))
+	if (size == 0)
 		return (free_split(split), NULL);
+	p = ft_calloc(size, sizeof(t_stack *));
+	if (!p)
+		return (free_split(split), NULL);
+	if (!fill(p, split, size))
+	{
+		free(p);
+		free_split(split);
+		return (NULL);
+	}
 	free_split(split);
 	return (p);
 }
@@ -90,16 +113,19 @@ t_stack	**create_fill_struct(int argc, char **argv)
 	size_t	size;
 	t_stack	**p;
 
-	i = non_flag(argv);
+	i = (size_t)non_flag(argv);
 	if (i >= (size_t)argc)
 		return (NULL);
 	if (ft_isintanse(argv[i], ' '))
 		return (fill_split(argv[i]));
-	size = (argc - 1) - i;
+	size = (size_t)argc - i;
 	p = ft_calloc(size, sizeof(t_stack *));
 	if (!p)
 		return (NULL);
-	if(!fill(p, &argv[++i], size))
+	if (!fill(p, &argv[i], size))
+	{
+		free(p);
 		return (NULL);
+	}
 	return (p);
 }
