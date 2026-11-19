@@ -6,7 +6,7 @@
 /*   By: amaghari <amaghari@student.42belgium.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/13 19:39:28 by amaghari          #+#    #+#             */
-/*   Updated: 2026/11/17 21:39:37 by amaghari         ###   ########.fr       */
+/*   Updated: 2026/11/19 03:20:00 by amaghari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ static void	disorder2(t_stack **stack, t_stack **b, t_operations *p)
 
 void	disorder(t_stack **stack, t_stack **b, t_operations *p)
 {
-	float	disorder;
-
+	if (is_sorted(*stack))
+		return ;
 	if (p->simple)
 		simple_sort(stack, b, p);
 	else if (p->medium)
@@ -76,4 +76,6 @@ void	disorder(t_stack **stack, t_stack **b, t_operations *p)
 		indexing_stack(*stack);
 		radix_sort(stack, b, stack_size(*stack), p);
 	}
+	else
+		disorder2(stack, b, p);
 }

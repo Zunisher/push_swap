@@ -6,7 +6,7 @@
 /*   By: amaghari <amaghari@student.42belgium.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/13 19:19:39 by amaghari          #+#    #+#             */
-/*   Updated: 2026/11/17 21:40:20 by amaghari         ###   ########.fr       */
+/*   Updated: 2026/11/19 03:20:00 by amaghari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,13 @@ int	non_flag(char **argv)
 	int	i;
 
 	i = 1;
-	if (argv[i] && !ft_strncmp(argv[i], "--bench", 7))
+	while (argv[i] && (!ft_strncmp(argv[i], "--bench", 8)
+			|| !ft_strncmp(argv[i], "--simple", 9)
+			|| !ft_strncmp(argv[i], "--medium", 9)
+			|| !ft_strncmp(argv[i], "--complex", 10)
+			|| !ft_strncmp(argv[i], "--adaptive", 11)))
 		i++;
-	if (argv[i] && (!ft_strncmp(argv[i], "--simple", 8)
-			|| !ft_strncmp(argv[i], "--medium", 8)
-			|| !ft_strncmp(argv[i], "--complex", 9)
-			|| !ft_strncmp(argv[i], "--adaptive", 10)))
-		i++;
-	return (i - 1);
+	return (i);
 }
 
 int	ft_isintanse(char *argv, char t)
@@ -50,16 +49,18 @@ int	parser(char **argv, t_operations *p)
 
 	i = 1;
 	mode = 0;
-	while (argv[i] && argv[i][0] == '-')
+	while (argv[i] && argv[i][0] == '-' && !ft_isdigit(argv[i][1]))
 	{
-		if (!ft_strncmp(argv[i], "--bench", 7))
+		if (!ft_strncmp(argv[i], "--bench", 8) && !p->print)
 			p->print = 1;
-		else if (!ft_strncmp(argv[i], "--simple", 8))
+		else if (!ft_strncmp(argv[i], "--simple", 9))
 			p->simple = ++mode;
-		else if (!ft_strncmp(argv[i], "--medium", 8))
+		else if (!ft_strncmp(argv[i], "--medium", 9))
 			p->medium = ++mode;
-		else if (!ft_strncmp(argv[i], "--complex", 9))
+		else if (!ft_strncmp(argv[i], "--complex", 10))
 			p->comple = ++mode;
+		else if (!ft_strncmp(argv[i], "--adaptive", 11))
+			mode++;
 		else
 			return (1);
 		if (mode > 1)

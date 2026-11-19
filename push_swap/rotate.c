@@ -6,19 +6,19 @@
 /*   By: amaghari <amaghari@student.42belgium.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/11 19:17:59 by amaghari          #+#    #+#             */
-/*   Updated: 2026/11/17 21:31:34 by amaghari         ###   ########.fr       */
+/*   Updated: 2026/11/19 03:20:00 by amaghari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	rotate(t_stack **stack)
+static int	rotate(t_stack **stack)
 {
 	t_stack	*first;
 	t_stack	*last;
 
 	if (!stack || !*stack || !(*stack)->next)
-		return ;
+		return (0);
 	first = *stack;
 	last = ftt_lstlast(*stack);
 	*stack = first->next;
@@ -26,32 +26,33 @@ static void	rotate(t_stack **stack)
 	last->next = first;
 	first->previous = last;
 	first->next = NULL;
+	return (1);
 }
 
 void	ra(t_stack **a, t_operations *operation)
 {
-	rotate(a);
-	if (operation->print)
-		write(1, "ra\n", 3);
-	else
-		operation->ra++;
+	if (!rotate(a))
+		return ;
+	write(1, "ra\n", 3);
+	operation->ra++;
 }
 
 void	rb(t_stack **b, t_operations *operation)
 {
-	rotate(b);
-	if (operation->print)
-		write(1, "rb\n", 3);
-	else
-		operation->rb++;
+	if (!rotate(b))
+		return ;
+	write(1, "rb\n", 3);
+	operation->rb++;
 }
 
 void	rr(t_stack **a, t_stack **b, t_operations *operation)
 {
-	rotate(a);
-	rotate(b);
-	if (operation->print)
-		write(1, "rr\n", 3);
-	else
-		operation->rr++;
+	int	moved;
+
+	moved = rotate(a);
+	moved |= rotate(b);
+	if (!moved)
+		return ;
+	write(1, "rr\n", 3);
+	operation->rr++;
 }
