@@ -6,7 +6,7 @@
 /*   By: amaghari <amaghari@student.42belgium.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/11 19:15:35 by amaghari          #+#    #+#             */
-/*   Updated: 2026/11/19 03:20:00 by amaghari         ###   ########.fr       */
+/*   Updated: 2026/11/19 21:00:26 by amaghari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	pa(t_stack **a, t_stack **b, t_operations *p)
 {
 	if (!push(b, a))
 		return ;
-	write(1, "pa\n", 3);
+	if (!p->print)
+		write(1, "pa\n", 3);
 	p->pa++;
 }
 
@@ -42,6 +43,7 @@ void	pb(t_stack **a, t_stack **b, t_operations *p)
 {
 	if (!push(a, b))
 		return ;
-	write(1, "pb\n", 3);
+	if (!p->print)
+		write(1, "pb\n", 3);
 	p->pb++;
 }

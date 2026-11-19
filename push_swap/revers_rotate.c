@@ -6,7 +6,7 @@
 /*   By: amaghari <amaghari@student.42belgium.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/11 19:21:40 by amaghari          #+#    #+#             */
-/*   Updated: 2026/11/19 03:20:00 by amaghari         ###   ########.fr       */
+/*   Updated: 2026/11/19 21:00:43 by amaghari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,25 @@ static int	reverse_rotate(t_stack **stack)
 	return (1);
 }
 
-void	rra(t_stack **a, t_operations *operation)
+void	rra(t_stack **a, t_operations *p)
 {
 	if (!reverse_rotate(a))
 		return ;
-	write(1, "rra\n", 4);
-	operation->rra++;
+	if (!p->print)
+		write(1, "rra\n", 4);
+	p->rra++;
 }
 
-void	rrb(t_stack **b, t_operations *operation)
+void	rrb(t_stack **b, t_operations *p)
 {
 	if (!reverse_rotate(b))
 		return ;
-	write(1, "rrb\n", 4);
-	operation->rrb++;
+	if (!p->print)
+		write(1, "rrb\n", 4);
+	p->rrb++;
 }
 
-void	rrr(t_stack **a, t_stack **b, t_operations *operation)
+void	rrr(t_stack **a, t_stack **b, t_operations *p)
 {
 	int	moved;
 
@@ -51,6 +53,7 @@ void	rrr(t_stack **a, t_stack **b, t_operations *operation)
 	moved |= reverse_rotate(b);
 	if (!moved)
 		return ;
-	write(1, "rrr\n", 4);
-	operation->rrr++;
+	if (!p->print)
+		write(1, "rrr\n", 4);
+	p->rrr++;
 }

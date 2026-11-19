@@ -6,7 +6,7 @@
 /*   By: amaghari <amaghari@student.42belgium.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/08 15:32:09 by amaghari          #+#    #+#             */
-/*   Updated: 2026/11/19 03:20:00 by amaghari         ###   ########.fr       */
+/*   Updated: 2026/11/19 16:13:43 by amaghari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static int	fill(t_stack **p, char **argv, size_t size)
 			return (0);
 		}
 		p[i]->val = ft_atoi(argv[i]);
+		if (!p[i]->val)
+			return (0);
 		if (i > 0)
 		{
 			p[i]->previous = p[i - 1];

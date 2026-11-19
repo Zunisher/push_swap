@@ -6,11 +6,31 @@
 /*   By: amaghari <amaghari@student.42belgium.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/08 15:01:46 by amaghari          #+#    #+#             */
-/*   Updated: 2026/11/17 21:33:26 by amaghari         ###   ########.fr       */
+/*   Updated: 2026/11/19 16:18:37 by amaghari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static int	check_duplicates(t_stack *stack)
+{
+	t_stack	*current;
+	t_stack	*compare;
+
+	current = stack;
+	while (current != NULL)
+	{
+		compare = current->next;
+		while (compare != NULL)
+		{
+			if (compare->val == current->val)
+				return (1);
+			compare = compare->next;
+		}
+		current = current->next;
+	}
+	return (0);
+}
 
 int	main(int argc, char **argv)
 {
@@ -22,7 +42,7 @@ int	main(int argc, char **argv)
 		return (1);
 	p = create_fill_struct(argc, argv);
 	bench = ft_calloc(1, sizeof(*bench));
-	if (!p || !bench)
+	if (!p || !bench || check_duplicates(*p))
 	{
 		ft_putstr_fd("Error\n", 2);
 		return (1);

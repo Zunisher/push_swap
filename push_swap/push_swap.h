@@ -6,7 +6,7 @@
 /*   By: amaghari <amaghari@student.42belgium.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/08 12:47:23 by amaghari          #+#    #+#             */
-/*   Updated: 2026/11/17 21:39:14 by amaghari         ###   ########.fr       */
+/*   Updated: 2026/11/19 20:18:31 by amaghari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,12 @@ typedef struct s_swap
 
 typedef struct s_operation
 {
+	int	nonmed;
+	int	nonsimp;
 	int	medium;
 	int	simple;
 	int	comple;
+	int	disorder;
 	int	print;
 	int	sa;
 	int	sb;
@@ -70,6 +73,7 @@ void	sorting_chunk(t_stack **stack_a, t_stack **stack_b,
 void	pushing_back_to_a(t_stack **stack_a, t_stack **stack_b,
 			t_operations *p);
 void	disorder(t_stack **stack, t_stack **b, t_operations *p);
+void	write_file(t_operations *p);
 void	simple_sort(t_stack **a, t_stack **b, t_operations *p);
 void	difficult_sort(t_stack **stack, t_stack **b, t_operations *p);
 void	indexing_stack(t_stack *stack);

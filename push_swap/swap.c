@@ -6,7 +6,7 @@
 /*   By: amaghari <amaghari@student.42belgium.      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/11 19:12:23 by amaghari          #+#    #+#             */
-/*   Updated: 2026/11/19 03:20:00 by amaghari         ###   ########.fr       */
+/*   Updated: 2026/11/19 21:01:17 by amaghari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,25 @@ static int	swap(t_stack **stack)
 	return (1);
 }
 
-void	sa(t_stack **a, t_operations *operation)
+void	sa(t_stack **a, t_operations *p)
 {
 	if (!swap(a))
 		return ;
-	write(1, "sa\n", 3);
-	operation->sa++;
+	if (!p->print)
+		write(1, "sa\n", 3);
+	p->sa++;
 }
 
-void	sb(t_stack **b, t_operations *operation)
+void	sb(t_stack **b, t_operations *p)
 {
 	if (!swap(b))
 		return ;
-	write(1, "sb\n", 3);
-	operation->sb++;
+	if (!p->print)
+		write(1, "sb\n", 3);
+	p->sb++;
 }
 
-void	ss(t_stack **a, t_stack **b, t_operations *operation)
+void	ss(t_stack **a, t_stack **b, t_operations *p)
 {
 	int	moved;
 
@@ -55,6 +57,7 @@ void	ss(t_stack **a, t_stack **b, t_operations *operation)
 	moved |= swap(b);
 	if (!moved)
 		return ;
-	write(1, "ss\n", 3);
-	operation->ss++;
+	if (!p->print)
+		write(1, "ss\n", 3);
+	p->ss++;
 }
